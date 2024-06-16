@@ -93,7 +93,7 @@ class EventNameCompletion : System.Management.Automation.IValidateSetValuesGener
         return [string[]] ([EventDetails]::GetEventDetails()).Name
     }
 }
-function Get-EventDetails {
+function Get-EventResults {
     [CmdletBinding()]
     param (
         <#
