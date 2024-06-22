@@ -18,7 +18,7 @@
 				"Pester",
 				"Profiler"
 			],
-			"powershellProfileURL": "https://gist.githubusercontent.com/SQLDBAWithABeard/13e1f7bf3dd69afc3496e00f6d945b49/raw/d706ef0c11d0359d041837f667335007472f06e1/profileforcontainers.ps1"
+			"powershellProfileURL": "https://gist.githubusercontent.com/SQLDBAWithABeard/13e1f7bf3dd69afc3496e00f6d945b49/raw/f045d686502909e88f7ce3564a7e98726a24b269/profileforcontainers.ps1"
 		}
 	},
 	"postCreateCommand": "sudo chsh vscode -s \"$(which pwsh)\";curl -s https://ohmyposh.dev/install.sh | bash -s",
