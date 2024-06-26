@@ -127,15 +127,34 @@ function Get-EventResults {
         Write-Host $Message
 
         # Define the URL of the results page from the event name and the class
-        $EventLink = ([EventDetails]::GetEventDetails().Where{ $_.Name -eq $EventName } ).EventLink
+        $EventLink = '{0}/{1}' -f 'https://www.ukvelo.co.uk',([EventDetails]::GetEventDetails().Where{ $_.Name -eq $EventName } ).EventLink
 
 
 
     } Process {
         $Message = "The Event Link is : {0}" -f $EventLink
         Write-Host $Message
+
+        $webResults = Invoke-WebRequest $EventLink
+
+        $entries = (($webResults.Content -split '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>&nbsp;<td>&nbsp;</td><td>&nbsp;</td></tr>')[1] -split '</tbody></table>')[0] -split ' <tr><td>'
+
+        $results = foreach ($entry in $entries | where Length -NE 11) {
+            $splits = $entry -split '</td><td>'
+            $time = $splits[3] -replace "6:00:59", "06:00:59" -replace '10:00;00', '10:00:00' -replace '&nbsp;', '00:00:00'
+            [PSCustomObject]@{
+                Surname   = $splits[0]
+                FirstName = $splits[1]
+                Route     = $splits[2]
+                Time      = $time
+                #Duration  = [Datetime]::ParseExact($time, 'HH:mm:ss', $null).AddDays(-2) - (Get-Date).Date.AddDays(-2)
+                BibNumber = $splits[4] -replace '</td></tr>', ''
+            }
+        }
     }
 
-    End {}
+    End {
+        $results | Sort-Object Surname
+    }
 }
 
