@@ -3,25 +3,13 @@
 {
 	"name": "PowerShell",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/powershell:lts-debian-11",
-	"features": {
-		"ghcr.io/devcontainers/features/common-utils:2": {
-			"installZsh": "true",
-			"username": "vscode",
-			"upgradePackages": "false",
-			"nonFreePackages": "true"
-		},
-		"ghcr.io/devcontainers/features/powershell:1": {
-			"modules": [
-				"PSFramework",
-				"ImportExcel",
-				"Pester",
-				"Profiler"
-			],
-			"powershellProfileURL": "https://gist.githubusercontent.com/SQLDBAWithABeard/13e1f7bf3dd69afc3496e00f6d945b49/raw/654e12de7bdabe294d1da760b4793b638ead1d87/profileforcontainers.ps1"
-		}
+	//"image": "mcr.microsoft.com/powershell:7.4-mariner-2.0-arm64",
+	"build": {
+		// Path is relative to the devcontainer.json file.
+		"dockerfile": "Dockerfile"
 	},
-	"postCreateCommand": "sudo chsh vscode -s \"$(which pwsh)\";curl -s https://ohmyposh.dev/install.sh | bash -s",
+	"features": {},
+	"postCreateCommand": "/usr/bin/sh ./.devcontainer/install.sh > ~/post-create.log",
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
