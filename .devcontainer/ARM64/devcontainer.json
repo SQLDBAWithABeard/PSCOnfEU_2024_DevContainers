@@ -9,7 +9,7 @@
 		"dockerfile": "Dockerfile"
 	},
 	"features": {},
-	"postCreateCommand": "/usr/bin/sh ./.devcontainer/install.sh > ~/post-create.log",
+	"postCreateCommand": "/usr/bin/sh ./.devcontainer/ARM64/install.sh > ~/post-create.log",
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
